@@ -14,4 +14,5 @@ public class OpTest01 {
 			while(st.hasMoreTokens()) System.out.println(Integer.parseInt(st.nextToken()));
 		} catch (Exception e) {}
 	}
+	
 }
