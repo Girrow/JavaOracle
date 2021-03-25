@@ -1,7 +1,7 @@
 package oop06.inter01;
 
 public class LgTV implements TV{
-	
+	Speaker inkelSpeaker = new InkelSpeaker();
 	public void turnOn(){
 		System.out.println("lgTV : 전원을 켭니다.");
 	}
@@ -15,9 +15,11 @@ public class LgTV implements TV{
 		System.out.println("lgTV : 채널을 내립니다.");
 	}
 	public void soundUp(){
-		System.out.println("lgTV : 채널을 올립니다.");
+		inkelSpeaker.soundUp();
+//		System.out.println("lgTV : 채널을 올립니다.");
 	}
 	public void soundDown(){
-		System.out.println("lgTV : 채널을 내립니다.");
+		inkelSpeaker.soundDown();
+//		System.out.println("lgTV : 채널을 내립니다.");
 	}
 }
