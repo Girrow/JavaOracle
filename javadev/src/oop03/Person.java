@@ -7,6 +7,7 @@ package oop03;
 public class Person extends Object{
 	private String name;
 	private String nation;
+//	private static String nation;
 	
 	public Person(String name, String nation) {
 		this.name = name;
