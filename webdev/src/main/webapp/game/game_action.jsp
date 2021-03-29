@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-	response.sendRedirect("basketFront");
-%>
+<h1>You : ${you}</h1>
+<hr>
+<h1>Com : ${com}</h1>
+<h2>${conc}</h2>
 </body>
 </html>

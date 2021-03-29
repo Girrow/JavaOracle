@@ -15,4 +15,6 @@ CREATE SEQUENCE m1board_seq NOCACHE;
 
 SELECT *
   FROM m1board;
-  
+ 
+--DELETE FROM M1BOARD
+-- WHERE no = 7;

@@ -1,39 +1,37 @@
-<%@page import="board.model.BoardDao"%>
 <%@page import="board.model.BoardDto"%>
+<%@page import="board.model.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%-- <jsp:useBean id="boardDto" class="board.model.BoardDto" /> --%>
-<%-- <jsp:setProperty property="*" name="boardDto"/> --%>
+    pageEncoding="UTF-8"%>
 <%
+	Long no = Long.parseLong(request.getParameter("no"));
 	String title = request.getParameter("title");
 	String name = request.getParameter("name");
 	String password = request.getParameter("password");
 	String content = request.getParameter("content");
 	
 	BoardDto boardDto = new BoardDto();
+	boardDto.setNo(no);
 	boardDto.setTitle(title);
 	boardDto.setName(name);
 	boardDto.setPassword(password);
 	boardDto.setContent(content);
 	
 	BoardDao boardDao = BoardDao.getInstance();
-	System.out.println("boardDao hashcode :"+boardDao.hashCode());
-	boolean result = boardDao.insertBoard(boardDto);
-	
+	boolean result = boardDao.updateBoard(boardDto);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Body Tag</title>
+<title>Insert title here</title>
 </head>
 <body>
 <script type="text/javascript">
-<%if(result){%>
-	alert('Write Success');
-	location.href='list.jsp';
+<% if(result){%>
+	alert('Update Complete!');
+	location.href='content.jsp?no=<%=boardDto.getNo()%>';
 <%}else{%>
-	alert("ERROR!");
+	alert('Wrong Password');
 	location.href='javascript:history.back();';
 <%}%>
 </script>
