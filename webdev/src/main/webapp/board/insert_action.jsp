@@ -1,45 +1,25 @@
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="board.model.BoardDao"%>
+<%@page import="board.model.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%-- <jsp:useBean id="boardDto" class="board.model.BoardDto" /> --%>
+<%-- <jsp:setProperty property="*" name="boardDto"/> --%>
 <%
 	String title = request.getParameter("title");
 	String name = request.getParameter("name");
 	String password = request.getParameter("password");
 	String content = request.getParameter("content");
 	
-	String sql = 
-			"INSERT INTO m1board (no, title,name,password,content)"+
-			"VALUES(m1board_seq.nextval,?,?,?,?)";
+	BoardDto boardDto = new BoardDto();
+	boardDto.setTitle(title);
+	boardDto.setName(name);
+	boardDto.setPassword(password);
+	boardDto.setContent(content);
 	
-	boolean result = false;
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	BoardDao boardDao = BoardDao.getInstance();
+	System.out.println("boardDao hashcode :"+boardDao.hashCode());
+	boolean result = boardDao.insertBoard(boardDto);
 	
-	try{
-		Class.forName("oracle.jdbc.OracleDriver");
-		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","oraclejava","oraclejava");
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, title);
-		pstmt.setString(2, name);
-		pstmt.setString(3, password);
-		pstmt.setString(4, content);
-		pstmt.executeUpdate();
-		
-		result=true;
-	}catch(Exception e){
-		e.printStackTrace();
-	}finally{
-		if(result){
-		//rs.close();
-		pstmt.close();
-		conn.close();
-			
-		}
-	}
 %>
 <!DOCTYPE html>
 <html>
