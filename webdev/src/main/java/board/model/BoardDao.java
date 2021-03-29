@@ -8,9 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class BoardDao {
 	private static BoardDao boardDao = null;
-
+	private DataSource ds= null;
 	
 	public boolean insertBoard(BoardDto boardDto) {
 		String sql = 
@@ -88,6 +92,65 @@ public class BoardDao {
 		return list;
 	}
 	
+	public boolean updateBoard(BoardDto boardDto) {
+		String sql = 
+				"UPDATE m1board "+
+				"SET title=?"
+				+ " ,name=?"
+				+ " ,content=? "+
+			  "WHERE no = ? AND password= ?";
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardDto.getTitle());
+			pstmt.setString(2, boardDto.getName());
+			pstmt.setString(3, boardDto.getContent());
+			pstmt.setLong(4, boardDto.getNo());
+			pstmt.setString(5, boardDto.getPassword());
+			
+			if(pstmt.executeUpdate()>0) {
+				result=true;				
+			};
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			dbClose(conn, pstmt);
+		}
+		return result;
+	}
+	
+	public boolean deleteBoard(BoardDto boardDto) {
+		String sql = 
+				"DELETE FROM m1board "+
+			     "WHERE no = ? AND password= ?";
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, boardDto.getNo());
+			pstmt.setString(2, boardDto.getPassword());
+			
+			if(pstmt.executeUpdate()>0) {
+				result=true;				
+			};
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			dbClose(conn, pstmt);
+		}
+		return result;
+	}
+	
 	
 	public BoardDto getBoardView(Long no) {
 		Connection conn= null;
@@ -126,6 +189,32 @@ public class BoardDao {
 		}
 		return boardDto;
 	}
+	/*
+	 * 조회수 증가
+	 */
+	public boolean updateReader(long no) {
+		Connection conn= null;
+		PreparedStatement pstmt = null;
+		String sql =
+				"UPDATE m1board "+
+				   "SET reader = reader+1 "+
+				 "WHERE no = ?";
+		boolean result = false;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, no);
+			if(pstmt.executeUpdate()>0) result=true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			dbClose(conn, pstmt);
+			
+		}
+		return result;
+	}
 	
 	private void dbClose(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 		try {
@@ -159,11 +248,16 @@ public class BoardDao {
 	}
 	
 	private BoardDao(){
-		try {Class.forName("oracle.jdbc.OracleDriver");}
-		catch (ClassNotFoundException e) {e.printStackTrace();}
+//		try {Class.forName("oracle.jdbc.OracleDriver");}
+		try {
+			Context context = new InitialContext();
+			ds = (DataSource) context.lookup("java:comp/env/OracleCP");
+			ds.getConnection();
+		}catch (Exception e) {e.printStackTrace();}
 	}
 	
 	private Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oraclejava", "oraclejava");
+//		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oraclejava", "oraclejava");
+		return ds.getConnection();
 	}
 }

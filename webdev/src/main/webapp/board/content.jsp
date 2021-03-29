@@ -5,6 +5,16 @@
     <%
     	Long no = Long.parseLong(request.getParameter("no"));
     	BoardDao boardDao = BoardDao.getInstance();
+    	boolean result = boardDao.updateReader(no);
+    	if(!result){
+    		%>
+   		<script type="text/javascript">
+			alert('해당하는 글이 존재하지 않습니다.');
+			location.href='list.jsp';
+		</script>
+    		<%
+    		return;
+    	}
     	BoardDto boardDto = boardDao.getBoardView(no);
     %>
 <!DOCTYPE html>
@@ -43,6 +53,8 @@
 		</tr>
 	</table>
 	<br>
-	<a href="list.jsp">돌아가기</a>
+	<a href="list.jsp">[List]</a>
+	<a href="update.jsp?no=<%=no%>">[Update]</a>
+	<a href="delete.jsp?no=<%=no%>">[Delete]</a>
 </body>
 </html>

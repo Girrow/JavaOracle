@@ -31,4 +31,22 @@
 		<url-pattern>/he</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>game</servlet-name>
+		<servlet-class>servlet.GameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>game</servlet-name>
+		<url-pattern>/game.mvc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>basket</servlet-name>
+		<servlet-class>test.mvc.BasketFront</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>basket</servlet-name>
+		<url-pattern>/basketFront</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
