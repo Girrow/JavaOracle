@@ -8,15 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BasketList {
 	
-	public String getBasketList(HttpServletRequest req, HttpServletResponse res) {
+	public ModelAndView getBasketList(HttpServletRequest req, HttpServletResponse res) {
 		List<BasketMember> list = new ArrayList<>();
 		list.add(new BasketMember("서태웅", "SF", 11, 30.1));
 		list.add(new BasketMember("강백호", "PF", 10, 7.0));
 		list.add(new BasketMember("채치수", "C", 4, 26.1));
 		list.add(new BasketMember("정대만", "SG", 14, 27.1));
+//		req.setAttribute("list", list);
 		
-		req.setAttribute("list", list);
-		return "/WEB-INF/view/basket.jsp";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/view/basket.jsp");
+		mav.addObject("list", list);
+		return mav;
 	}
 
 }

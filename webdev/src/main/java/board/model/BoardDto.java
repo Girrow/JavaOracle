@@ -56,4 +56,5 @@ public class BoardDto {
 		return "BoardDto [content=" + content + ", name=" + name + ", no=" + no + ", password=" + password + ", reader="
 				+ reader + ", title=" + title + ", writer=" + writer + "]";
 	}
+	
 }
