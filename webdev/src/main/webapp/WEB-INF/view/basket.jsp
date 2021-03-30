@@ -2,10 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    List<BasketMember> list = (List)request.getAttribute("list");
-    
-    %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,14 +28,14 @@
 			<th>백넘버</th>
 			<th>득점력</th>
 		</tr>
-		<%for(BasketMember member :list){ %>
-		<tr>
-			<td><%=member.getName() %></td>
-			<td><%=member.getPosition() %></td>
-			<td><%=member.getNo() %></td>
-			<td><%=member.getPoint() %></td>
-		</tr>
-		<%} %>
+		<c:forEach items="${list}" var="member">
+			<tr>
+				<td>${member.name}</td>
+				<td>${member.position}</td>
+				<td>${member.no}</td>
+				<td>${member.point}</td>
+			</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>
