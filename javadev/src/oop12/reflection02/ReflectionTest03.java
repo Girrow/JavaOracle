@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import oop12.reflection01.Worker;
 
 public class ReflectionTest03 {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Worker worker= new Worker("강백호",Worker.MANAGER);
 		

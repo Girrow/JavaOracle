@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+<script type="text/javascript">
+	var createXMLHttpRequest = function() {
+		let xhr = null;
+		if (window.ActiveXObject) {
+			xhr = new ActiveXObject();
+// 			alert(xhr);
+		} else if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+// 			alert("XML 객체 생성" + xhr);
+		}
+		return xhr;
+	}
+
+	var load = function load(url) {
+		let xhr = createXMLHttpRequest();
+// 		console.log('xhr.readyState : '+xhr.readyState);
+		xhr.open('GET',url,true);
+// 		console.log('xhr.readyState : '+xhr.readyState);
+// 		testFetch();
+		xhr.onreadystatechange = function(){
+// 			console.log('xhr.readyState : '+xhr.readyState);
+			if(xhr.readyState == 4){
+				if(xhr.status == 200){
+					console.log("ok");
+					process(xhr);
+				}else{
+					console.log("Error :"+xhr.status);
+				}
+			}
+		}
+		
+		xhr.send(null);
+	}
+	
+	var process = function(xhr){
+		document.getElementById('rcvData').innerHTML = xhr.responseText;
+	}
+</script>
+</head>
+<body>
+
+	<input type="button" value="Test" onclick="load('msg.txt');">
+	<input type="button" value="Test2" onclick="load('msg.jsp');">
+	<div id="rcvData">
+	
+	</div>
+
+
+
+	<script type="text/javascript">
+		function testFetch() {
+			fetch('https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json')
+				.then(function(response) {
+					return response.json();
+					})
+				.then(function(myJson) {
+					console.log(JSON.stringify(myJson));
+					});
+		}
+	</script>
+</body>
+</html>

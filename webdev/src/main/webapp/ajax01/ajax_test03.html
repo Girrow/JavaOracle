@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+<script type="text/javascript">
+	var createXMLHttpRequest = function() {
+		let xhr = null;
+		if (window.ActiveXObject) {
+			xhr = new ActiveXObject();
+			// 			alert(xhr);
+		} else if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+			// 			alert("XML 객체 생성" + xhr);
+		}
+		return xhr;
+	}
+
+	var load = function load(url) {
+		let xhr = createXMLHttpRequest();
+		let name = document.getElementById('name').value;
+		let age = document.getElementById('age').value;
+		
+		xhr.open('GET', url+`?name=${name}&age=${age}`, true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					console.log("ok");
+					process(xhr);
+				} else {
+					console.log("Error :" + xhr.status);
+				}
+			}
+		}
+
+		xhr.send(null);
+	}
+
+	var process = function(xhr) {
+		document.getElementById('rcvData').innerHTML = `<h1>${xhr.responseText}</h1>`;
+	}
+</script>
+</head>
+<body>
+
+name:	<input type="text" id="name">
+age:	<input type="text" id="age">
+	<input type="button" value="say" onclick="load('../Iam');">
+	<hr>
+	<div id="rcvData"></div>
+	<hr>
+
+</body>
+</html>
