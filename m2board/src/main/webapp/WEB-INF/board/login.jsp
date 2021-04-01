@@ -19,7 +19,7 @@ function goUserRegist(){  //회원가입
 <tr>
 	<th>ID</th>
 	<td>
-		<input type="text" name="id" autofocus="autofocus" required="required" />
+		<input type="text" name="id" autofocus="autofocus" required="required" value=""/>
 	</td>
 </tr>
 <tr>

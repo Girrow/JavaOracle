@@ -55,5 +55,6 @@ ALTER TABLE tbl_board
 	REFERENCES tbl_member (id)
 ;
 
+insert into tbl_member(id,name,password,birth) values('abc','에이비','1234','2000-01-01');
 
-
+select * from tbl_board;

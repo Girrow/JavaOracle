@@ -16,14 +16,6 @@
 				<td><input type="text" name="title" autofocus="autofocus" required="required"></td>
 			</tr>
 			<tr>
-				<th>Name</th>
-				<td><input type="text" name="name" required="required"></td>
-			</tr>
-			<tr>
-				<th>Password</th>
-				<td><input type="password" name="password" required="required"></td>
-			</tr>
-			<tr>
 				<th>Content</th>
 				<td><textarea rows="5" cols="50" name="content" required="required"></textarea></td>
 			</tr>
